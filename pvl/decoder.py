@@ -77,6 +77,9 @@ class PVLDecoder(object):
     decimal_chars = char_set('0123456789')
     hex_chars = char_set('0123456789ABCDEFabcdef')
 
+    def __init__(self, null_value='NULL'):
+        self.null_value = null_value
+
     def peek(self, stream, n, offset=0):
         return stream.peek(n + offset)[offset:offset + n]
 
@@ -660,7 +663,7 @@ class PVLDecoder(object):
         return value in self.null_tokens
 
     def parse_null(self, value):
-        return None
+        return self.null_value
 
     def is_boolean(self, value):
         return value in self.boolean_tokens
